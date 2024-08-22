@@ -9,17 +9,20 @@ from PIL import Image
 import time
 import glob
 
-
+import cv2
+import numpy as np
+import pytesseract
+from PIL import Image
 
 from gtts import gTTS
 from googletrans import Translator
 
 
-st.title("TRADUCTOR.")
-st.subheader("Escucho lo que quieres traducir.")
+st.title("Traductor de imagenes")
+st.subheader("Reconocimiento óptico de imagenes y traducción de texto")
 
 
-image = Image.open('OIG7.jpg')
+image = Image.open('traductorimg.png')
 
 st.image(image,width=300)
 with st.sidebar:
@@ -60,17 +63,20 @@ result = streamlit_bokeh_events(
     override_height=75,
     debounce_time=0)
 
-if result:
-    if "GET_TEXT" in result:
-        st.write(result.get("GET_TEXT"))
-    try:
-        os.mkdir("temp")
-    except:
-        pass
-    st.title("Texto a Audio")
-    translator = Translator()
+img_file_buffer = st.camera_input("Toma una Foto")
+
+if img_file_buffer is not None:
+    # To read image file buffer with OpenCV:
+    bytes_data = img_file_buffer.getvalue()
+    cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+
+        
+    img_rgb = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
+    text=pytesseract.image_to_string(img_rgb)
+    st.write(text) 
+
     
-    text = str(result.get("GET_TEXT"))
+    text1 = str(result.get("text"))
     in_lang = st.selectbox(
         "Selecciona el lenguaje de Entrada",
         ("Inglés", "Español", "Bengali", "Coreano", "Mandarín", "Japonés"),
@@ -105,37 +111,6 @@ if result:
     elif out_lang == "Japonés":
         output_language = "ja"
     
-    english_accent = st.selectbox(
-        "Selecciona el acento",
-        (
-            "Defecto",
-            "Español",
-            "Reino Unido",
-            "Estados Unidos",
-            "Canada",
-            "Australia",
-            "Irlanda",
-            "Sudáfrica",
-        ),
-    )
-    
-    if english_accent == "Defecto":
-        tld = "com"
-    elif english_accent == "Español":
-        tld = "com.mx"
-    
-    elif english_accent == "Reino Unido":
-        tld = "co.uk"
-    elif english_accent == "Estados Unidos":
-        tld = "com"
-    elif english_accent == "Canada":
-        tld = "ca"
-    elif english_accent == "Australia":
-        tld = "com.au"
-    elif english_accent == "Irlanda":
-        tld = "ie"
-    elif english_accent == "Sudáfrica":
-        tld = "co.za"
     
     
     def text_to_speech(input_language, output_language, text, tld):
@@ -179,6 +154,13 @@ if result:
 
 
         
+    
+
+
+
+
+
+
     
 
 
