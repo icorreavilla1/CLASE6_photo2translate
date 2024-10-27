@@ -4,7 +4,9 @@ from googletrans import Translator
 
 # Configuración de la página y estilos
 st.set_page_config(page_title="Análisis de Sentimiento", layout="wide")
-st.title("<span style='color: #4B0082;'>💬✨ Análisis de Sentimiento y Corrección de Texto</span>", unsafe_allow_html=True)
+
+# Títulos y encabezados con markdown para permitir HTML
+st.markdown("<h1 style='color: #4B0082;'>💬✨ Análisis de Sentimiento y Corrección de Texto</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='color: #6A5ACD;'>Detecta el sentimiento y la precisión en tus frases 📈💡</h4>", unsafe_allow_html=True)
 
 translator = Translator()
@@ -73,9 +75,6 @@ with st.expander("<span style='color: #4B0082;'>📝 Corrección en Inglés</spa
 # Pie de página
 st.markdown("---")
 st.markdown("<span style='color: #4B0082;'>💬 Análisis de Sentimiento y Corrección de Texto - Potenciado por TextBlob y Google Translate</span>", unsafe_allow_html=True)
-
-        
-    
 
 
 
