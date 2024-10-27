@@ -13,7 +13,7 @@ translator = Translator()
 
 # Barra lateral con explicación
 with st.sidebar:
-    st.header("<span style='color: #4B0082;'>🎯 Polaridad y Subjetividad</span>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #4B0082;'>🎯 Polaridad y Subjetividad</h3>", unsafe_allow_html=True)
     st.info("""
     **Polaridad**: Indica el sentimiento del texto: positivo, negativo o neutral. 
     Va de -1 (muy negativo) a 1 (muy positivo).
@@ -23,7 +23,7 @@ with st.sidebar:
     """)
 
 # Sección de análisis de sentimiento
-with st.expander("<span style='color: #4B0082;'>📊 Analizar Polaridad y Subjetividad en un texto</span>", unsafe_allow_html=True):
+with st.expander("<h3 style='color: #4B0082;'>📊 Analizar Polaridad y Subjetividad en un texto</h3>", unsafe_allow_html=True):
     st.markdown("<h4 style='color: #6A5ACD;'>Por favor escribe en el campo de texto la frase que deseas analizar:</h4>", unsafe_allow_html=True)
     text1 = st.text_area("💬 Ingresa tu texto aquí:", placeholder="Escribe algo interesante...", height=150)
 
@@ -63,7 +63,7 @@ with st.expander("<span style='color: #4B0082;'>📊 Analizar Polaridad y Subjet
             st.markdown("<style>body {background-color: #F5F5F5;}</style>", unsafe_allow_html=True)
 
 # Sección de corrección de texto
-with st.expander("<span style='color: #4B0082;'>📝 Corrección en Inglés</span>", unsafe_allow_html=True):
+with st.expander("<h3 style='color: #4B0082;'>📝 Corrección en Inglés</h3>", unsafe_allow_html=True):
     st.markdown("<h4 style='color: #6A5ACD;'>¿Necesitas una pequeña ayuda con la ortografía? ¡Te ayudamos!</h4>", unsafe_allow_html=True)
     text2 = st.text_area("🔍 Ingresa el texto en inglés para corregir:", placeholder="Escribe en inglés...", key="4", height=150)
     
@@ -75,7 +75,6 @@ with st.expander("<span style='color: #4B0082;'>📝 Corrección en Inglés</spa
 # Pie de página
 st.markdown("---")
 st.markdown("<span style='color: #4B0082;'>💬 Análisis de Sentimiento y Corrección de Texto - Potenciado por TextBlob y Google Translate</span>", unsafe_allow_html=True)
-
 
 
 
