@@ -35,18 +35,44 @@ with st.expander("📊 Analizar Polaridad y Subjetividad en un texto"):
         st.write("**Polaridad:**", f"`{round(blob.sentiment.polarity, 2)}`")
         st.write("**Subjetividad:**", f"`{round(blob.sentiment.subjectivity, 2)}`")
         
-        # Clasificación de sentimiento
+        # Clasificación de sentimiento y cambios de interfaz
         polarity_score = round(blob.sentiment.polarity, 2)
+        
         if polarity_score >= 0.5:
             st.success("🌟 ¡Es un sentimiento muy positivo! 😊")
+            st.markdown("<h1 style='text-align: center;'>😄</h1>", unsafe_allow_html=True)  # Emoji gigante para positivo
+            st.markdown(
+                "<style>body {background-color: #b2f7b3;}</style>", 
+                unsafe_allow_html=True
+            )
         elif 0.1 <= polarity_score < 0.5:
             st.info("💚 Es un sentimiento positivo")
+            st.markdown("<h1 style='text-align: center;'>🙂</h1>", unsafe_allow_html=True)  # Emoji gigante para positivo
+            st.markdown(
+                "<style>body {background-color: #d4edda;}</style>", 
+                unsafe_allow_html=True
+            )
         elif -0.5 < polarity_score <= -0.1:
             st.warning("⚠️ Es un sentimiento ligeramente negativo")
+            st.markdown("<h1 style='text-align: center;'>😟</h1>", unsafe_allow_html=True)  # Emoji gigante para negativo
+            st.markdown(
+                "<style>body {background-color: #fff3cd;}</style>", 
+                unsafe_allow_html=True
+            )
         elif polarity_score <= -0.5:
             st.error("🚨 ¡Es un sentimiento muy negativo! 😔")
+            st.markdown("<h1 style='text-align: center;'>😡</h1>", unsafe_allow_html=True)  # Emoji gigante para negativo
+            st.markdown(
+                "<style>body {background-color: #f8d7da;}</style>", 
+                unsafe_allow_html=True
+            )
         else:
             st.write("🤔 Es un sentimiento neutral 😐")
+            st.markdown("<h1 style='text-align: center;'>😐</h1>", unsafe_allow_html=True)  # Emoji gigante para neutral
+            st.markdown(
+                "<style>body {background-color: #e2e3e5;}</style>", 
+                unsafe_allow_html=True
+            )
 
 # Sección de corrección de texto
 with st.expander("📝 Corrección en Inglés"):
@@ -61,7 +87,6 @@ with st.expander("📝 Corrección en Inglés"):
 # Pie de página
 st.markdown("---")
 st.markdown("💬 **Análisis de Sentimiento y Corrección de Texto** - Potenciado por TextBlob y Google Translate")
-
 
            
 
