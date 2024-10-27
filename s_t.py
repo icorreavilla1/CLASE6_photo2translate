@@ -2,43 +2,17 @@ import streamlit as st
 from textblob import TextBlob
 from googletrans import Translator
 
-# Configuración de la página y estilos iniciales
-st.set_page_config(page_title="Análisis de Sentimiento y Corrección", page_icon="💬")
-st.markdown(
-    """
-    <style>
-    .positive {
-        background-color: #e0f7fa;
-    }
-    .very-positive {
-        background-color: #c8e6c9;
-    }
-    .neutral {
-        background-color: #f0f4c3;
-    }
-    .negative {
-        background-color: #ffe0b2;
-    }
-    .very-negative {
-        background-color: #ffcdd2;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Título y subtítulo de la aplicación
+# Configuración de la página y estilos
 st.title("💬✨ Análisis de Sentimiento y Corrección de Texto")
 st.markdown("#### Detecta el sentimiento y la precisión en tus frases 📈💡")
 
-# Configuración del traductor
 translator = Translator()
 
-# Barra lateral de explicación
+# Barra lateral con explicación
 with st.sidebar:
     st.header("🎯 Polaridad y Subjetividad")
     st.info("""
-    **Polaridad**: Indica el sentimiento del texto: positivo, negativo o neutral.
+    **Polaridad**: Indica el sentimiento del texto: positivo, negativo o neutral. 
     Va de -1 (muy negativo) a 1 (muy positivo).
     
     **Subjetividad**: Mide cuánto del contenido es subjetivo (opiniones, emociones) frente a objetivo (hechos).
@@ -56,35 +30,29 @@ with st.expander("📊 Analizar Polaridad y Subjetividad en un texto"):
         trans_text = translation.text
         blob = TextBlob(trans_text)
 
-        # Mostrar polaridad y subjetividad
-        polarity_score = round(blob.sentiment.polarity, 2)
-        subjectivity_score = round(blob.sentiment.subjectivity, 2)
-        
+        # Mostrar polaridad y subjetividad con colores
         st.markdown("### 📈 Resultados:")
-        st.write("**Polaridad:**", f"`{polarity_score}`")
-        st.write("**Subjetividad:**", f"`{subjectivity_score}`")
-
-        # Configurar la interfaz según el sentimiento
+        st.write("**Polaridad:**", f"`{round(blob.sentiment.polarity, 2)}`")
+        st.write("**Subjetividad:**", f"`{round(blob.sentiment.subjectivity, 2)}`")
+        
+        # Clasificación de sentimiento
+        polarity_score = round(blob.sentiment.polarity, 2)
         if polarity_score >= 0.5:
-            st.markdown('<div class="very-positive">🌟 ¡Es un sentimiento muy positivo! 😊</div>', unsafe_allow_html=True)
-            st.image("path/to/positive_image.jpg", use_column_width=True)
+            st.success("🌟 ¡Es un sentimiento muy positivo! 😊")
         elif 0.1 <= polarity_score < 0.5:
-            st.markdown('<div class="positive">💚 Es un sentimiento positivo</div>', unsafe_allow_html=True)
+            st.info("💚 Es un sentimiento positivo")
         elif -0.5 < polarity_score <= -0.1:
-            st.markdown('<div class="neutral">⚠️ Es un sentimiento ligeramente negativo</div>', unsafe_allow_html=True)
-            st.image("path/to/neutral_image.jpg", use_column_width=True)
+            st.warning("⚠️ Es un sentimiento ligeramente negativo")
         elif polarity_score <= -0.5:
-            st.markdown('<div class="very-negative">🚨 ¡Es un sentimiento muy negativo! 😔</div>', unsafe_allow_html=True)
-            st.image("path/to/negative_image.jpg", use_column_width=True)
+            st.error("🚨 ¡Es un sentimiento muy negativo! 😔")
         else:
-            st.markdown('<div class="neutral">🤔 Es un sentimiento neutral 😐</div>', unsafe_allow_html=True)
-            st.image("path/to/neutral_image.jpg", use_column_width=True)
+            st.write("🤔 Es un sentimiento neutral 😐")
 
 # Sección de corrección de texto
 with st.expander("📝 Corrección en Inglés"):
     st.markdown("#### ¿Necesitas una pequeña ayuda con la ortografía? ¡Te ayudamos!")
     text2 = st.text_area("🔍 Ingresa el texto en inglés para corregir:", placeholder="Escribe en inglés...", key="4")
-
+    
     if text2:
         blob2 = TextBlob(text2)
         st.write("**Texto corregido:**")
