@@ -20,3 +20,4 @@ Streamlit-bokeh-events
 textblob
 googletrans==4.0.0-rc1
 
+pip install streamlit textblob googletrans==4.0.0-rc1
